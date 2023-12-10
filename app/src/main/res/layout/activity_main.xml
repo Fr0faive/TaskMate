@@ -12,9 +12,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginHorizontal="30dp"
         android:padding="50dp"
-        android:background="#0073CB"
-        android:gravity="center">
+        android:background="@drawable/shape_edge"
+        android:gravity="start"
+        tools:ignore="UselessParent">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,49 +25,47 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textAlignment="center"/>
+
         <EditText
             android:id="@+id/editTextUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/white"
             android:autofillHints="name"
-            android:hint="Username"/>
+            android:hint="Username"
+            android:minHeight="48dp"
+            android:textColorHint="@color/white"
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:textColorHint="@color/white"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:textColorHint="@color/white" />
 
         <Button
             android:id="@+id/buttonLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#2ed573"
             android:text="Login"/>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/textViewForgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/textViewForgotPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Forgot Password?"
-                android:textColor="@color/white"
-                android:layout_marginTop="8dp"/>
+            android:text="Forgot Password?"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"/>
+        <TextView
+            android:id="@+id/textViewRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account? Register here."
+            android:textColor="@color/white"
+            android:layout_marginTop="8dp"/>
 
-            <TextView
-                android:id="@+id/textViewRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Don't have an account? Register here."
-                android:layout_marginStart="50dp"
-                android:textColor="@color/white"
-                android:layout_marginTop="8dp"/>
-        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>
