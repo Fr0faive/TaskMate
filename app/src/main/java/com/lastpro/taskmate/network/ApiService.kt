@@ -1,4 +1,6 @@
 package com.lastpro.taskmate.network
+import com.lastpro.taskmate.model.LoginRequest
+import com.lastpro.taskmate.model.LoginResponse
 import com.lastpro.taskmate.model.User
 import retrofit2.Response
 import retrofit2.http.Body
@@ -14,4 +16,8 @@ interface ApiService {
 
     @POST("user")
     suspend fun createUser(@Body user: User): Response<User>
+
+    @POST("login")
+    suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
+}
 }
