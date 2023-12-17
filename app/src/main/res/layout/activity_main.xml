@@ -9,11 +9,11 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginHorizontal="30dp"
-        android:padding="50dp"
+        android:padding="10dp"
         android:background="@drawable/shape_edge"
         android:gravity="start"
         tools:ignore="UselessParent">
