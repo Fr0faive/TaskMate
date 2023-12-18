@@ -4,20 +4,22 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.core.content.ContentProviderCompat
+import com.lastpro.taskmate.viewmodel.LoginViewModel
 
 class MainActivity : AppCompatActivity() {
+
+    val loginViewModel by viewModels<LoginViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE)
-        if(!sharedPreferences.getBoolean("is_login",false)){
-            val intent = Intent(this, login::class.java)
-            startActivity(intent)
-        }
-        /*val myEdit = sharedPreferences.edit()
-        val token = sharedPreferences?.getString("token","")
-        val is_login = sharedPreferences?.getBoolean("is_login",false)*/
+        loginViewModel.checkLogin(this ,{ isLogin ->
+            if (!isLogin) {
+                val intent = Intent(this, login::class.java)
+                startActivity(intent)
+            }
+        })
 
         setContentView(R.layout.activity_main)
     }

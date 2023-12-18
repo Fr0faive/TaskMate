@@ -15,20 +15,23 @@ import com.lastpro.taskmate.viewmodel.LoginViewModel
 
 class login : AppCompatActivity() {
 //    private val viewModel: LoginViewModel by viewModels()
-    val viewModel by viewModels<LoginViewModel>()
+    val loginViewModel by viewModels<LoginViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        loginViewModel.checkLogin(this,{ isLogin ->
+            if(isLogin){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+        })
+
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
 
         val sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE)
-        if(sharedPreferences.getBoolean("is_login",false)) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
         val myEdit: SharedPreferences.Editor = sharedPreferences.edit()
 
-        setContentView(R.layout.activity_login)
 
         val usernameEditText : EditText = findViewById(R.id.signInUsername)
         val passwordEditText : EditText = findViewById(R.id.signInPassword)
@@ -38,7 +41,7 @@ class login : AppCompatActivity() {
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
 
-            viewModel.login(username, password, { data ->
+            loginViewModel.login(username, password, { data ->
                 myEdit.putString("token",data.token)
                 myEdit.putBoolean("is_login",true)
                 myEdit.apply()

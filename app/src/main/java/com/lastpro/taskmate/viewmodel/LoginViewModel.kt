@@ -1,7 +1,10 @@
 package com.lastpro.taskmate.viewmodel
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +13,7 @@ import com.lastpro.taskmate.MainActivity
 import com.lastpro.taskmate.login
 import com.lastpro.taskmate.model.LoginRequest
 import com.lastpro.taskmate.model.LoginResponse
+import com.lastpro.taskmate.model.User
 import com.lastpro.taskmate.network.ApiClient
 import com.lastpro.taskmate.network.ApiService
 import kotlinx.coroutines.launch
@@ -19,6 +23,7 @@ import java.security.AccessController.getContext
 
 
 class LoginViewModel : ViewModel() {
+
     private val _loginResponse = MutableLiveData<LoginResponse>()
     val loginResponse: LiveData<LoginResponse> get() = _loginResponse
 
@@ -47,5 +52,37 @@ class LoginViewModel : ViewModel() {
                 e.printStackTrace()*/
             }
         }
+    }
+
+    fun checkLogin(context: Context,isLogin : (Boolean)->Unit){
+        val preferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE)
+        viewModelScope.launch {
+            if(preferences.getBoolean("is_login",false)) {
+                val myEdit: SharedPreferences.Editor = preferences.edit()
+                val token   = preferences.getString("token","")
+                try {
+                    val service : ApiService = ApiClient.apiService(token)
+                    val response = service.getUserLogin()
+
+                    if(response.isSuccessful){
+                        val data = response.body() as User
+                        isLogin(true)
+                    }else{
+                        myEdit.putString("token","")
+                        myEdit.putBoolean("is_login",false)
+                        myEdit.apply()
+                        isLogin(false)
+                    }
+                } catch (e: Exception) {
+                    myEdit.putString("token","")
+                    myEdit.putBoolean("is_login",false)
+                    myEdit.apply()
+                    isLogin(false)
+                }
+            }else{
+                isLogin(false)
+            }
+        }
+
     }
 }

@@ -20,4 +20,7 @@ interface ApiService {
 
     @POST("login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
+
+    @GET("user_login")
+    suspend fun getUserLogin(): Response<User>
 }
