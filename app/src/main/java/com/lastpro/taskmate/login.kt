@@ -32,7 +32,6 @@ class login : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE)
         val myEdit: SharedPreferences.Editor = sharedPreferences.edit()
 
-
         val usernameEditText : EditText = findViewById(R.id.signInUsername)
         val passwordEditText : EditText = findViewById(R.id.signInPassword)
 
