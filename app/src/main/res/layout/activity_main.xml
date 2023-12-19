@@ -1,71 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/navbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginHorizontal="30dp"
-        android:padding="10dp"
-        android:background="@drawable/shape_edge"
-        android:gravity="start"
-        tools:ignore="UselessParent">
+        android:layout_height="68dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:gravity="center_vertical"
+        android:background="#2527A8">
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LOGIN"
-            android:textSize="40sp"
+            android:text="TaskMate"
+            android:textSize="25sp"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textAlignment="center"/>
-
-        <EditText
-            android:id="@+id/editTextUsername"
+            />
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="name"
-            android:hint="Username"
-            android:minHeight="48dp"
-            android:textColorHint="@color/white"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/editTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:textColorHint="@color/white" />
-
-        <Button
-            android:id="@+id/buttonLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#2ed573"
-            android:text="Login"/>
-        <TextView
-            android:id="@+id/textViewForgotPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Forgot Password?"
-            android:textColor="@color/white"
-            android:layout_marginTop="16dp"/>
-        <TextView
-            android:id="@+id/textViewRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Don't have an account? Register here."
-            android:textColor="@color/white"
-            android:layout_marginTop="8dp"/>
-
-
+            android:gravity="end"
+            android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:drawableLeft="@drawable/baseline_logout_24"
+                    android:textColor="@color/white" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/container_tasklabel"
+        android:layout_marginTop="68dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:itemCount="5"
+        tools:listitem="@layout/card_tasklabel"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:src="@drawable/baseline_add_24"
+        app:backgroundTint="#2527A8"
+        app:tint="@color/white" />
+</FrameLayout>

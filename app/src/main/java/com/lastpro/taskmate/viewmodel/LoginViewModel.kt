@@ -59,8 +59,8 @@ class LoginViewModel : ViewModel() {
         viewModelScope.launch {
             if(preferences.getBoolean("is_login",false)) {
                 val myEdit: SharedPreferences.Editor = preferences.edit()
-                val token   = preferences.getString("token","")
                 try {
+                    val token   = preferences.getString("token","")
                     val service : ApiService = ApiClient.apiService(token)
                     val response = service.getUserLogin()
 
