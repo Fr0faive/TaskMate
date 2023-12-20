@@ -1,5 +1,6 @@
 package com.lastpro.taskmate
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContentProviderCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     val loginViewModel by viewModels<LoginViewModel>()
     val taskLabelViewModel by viewModels<TaskLabelViewModel>()
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,7 +41,15 @@ class MainActivity : AppCompatActivity() {
 
         taskLabelViewModel.getTaskLabel(this)
         taskLabelViewModel.taskLabelResponse.observe(this, Observer { data ->
-            val adapter = TaskLabelAdapter(data)
+            val adapter = TaskLabelAdapter(data, onEdit = { id ->
+                val intent = Intent(this, TasklabelEdit::class.java)
+                intent.putExtra("id",id)
+                startActivity(intent)
+            }, onView = { id ->
+//                Log.d("CLICKED",id.toString())
+            }, onDelete = { id ->
+//                Log.d("CLICKED",id.toString())
+            })
             tasklabel_con.adapter = adapter
         })
 

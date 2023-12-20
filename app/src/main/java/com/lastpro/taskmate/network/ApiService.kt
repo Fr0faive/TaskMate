@@ -29,9 +29,9 @@ interface ApiService {
     @GET("tasklabel/get")
     suspend fun getTaskLabel(): Response<List<TaskLabel>>
     @POST("tasklabel/insert")
-    suspend fun insertTaskLabel(): Response<ApiResponse>
+    suspend fun insertTaskLabel(@Body taskLabel: TaskLabel): Response<ApiResponse>
     @POST("tasklabel/update/{id}")
-    suspend fun updateTaskLabel(@Path("id") id: Int): Response<ApiResponse>
+    suspend fun updateTaskLabel(@Path("id") id: Int,@Body taskLabel: TaskLabel): Response<ApiResponse>
     @POST("tasklabel/delete/{id}")
     suspend fun deleteTaskLabel(@Path("id") id: Int): Response<ApiResponse>
 
