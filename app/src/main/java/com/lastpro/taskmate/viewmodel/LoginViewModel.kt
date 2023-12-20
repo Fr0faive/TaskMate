@@ -3,14 +3,10 @@ package com.lastpro.taskmate.viewmodel
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lastpro.taskmate.MainActivity
-import com.lastpro.taskmate.login
 import com.lastpro.taskmate.model.LoginRequest
 import com.lastpro.taskmate.model.LoginResponse
 import com.lastpro.taskmate.model.User
@@ -18,14 +14,8 @@ import com.lastpro.taskmate.network.ApiClient
 import com.lastpro.taskmate.network.ApiService
 import kotlinx.coroutines.launch
 import org.json.JSONObject
-import retrofit2.Callback
-import java.security.AccessController.getContext
-
 
 class LoginViewModel : ViewModel() {
-
-    private val _loginResponse = MutableLiveData<LoginResponse>()
-    val loginResponse: LiveData<LoginResponse> get() = _loginResponse
 
     fun login(username: String, password: String,onSuccess: (LoginResponse)->Unit,onError: (String)->Unit) {
         viewModelScope.launch {
@@ -41,14 +31,13 @@ class LoginViewModel : ViewModel() {
                 }else{
                     val jObjError = JSONObject(response.errorBody()!!.string())
                     val message     = jObjError.getString("message")
+//                    Log.e("DEbug Login",response.errorBody()!!.string().toString());
                     onError(message)
-
                 }
             } catch (e: Exception) {
                 onError(e.toString())
                 // Tangani kesalahan jaringan atau kesalahan lainnya
-                /*Log.e("DEbug Login","Not Connect");
-                Log.e("DEbug Login",e.toString());
+                /*Log.e("DEbug Login",e.toString());
                 e.printStackTrace()*/
             }
         }
@@ -68,16 +57,18 @@ class LoginViewModel : ViewModel() {
                         val data = response.body() as User
                         isLogin(true)
                     }else{
-                        myEdit.putString("token","")
+                        /*myEdit.putString("token","")
                         myEdit.putBoolean("is_login",false)
-                        myEdit.apply()
+                        myEdit.apply()*/
                         isLogin(false)
+                        Log.e("Check Login",response.errorBody()!!.string().toString());
                     }
                 } catch (e: Exception) {
-                    myEdit.putString("token","")
+                    /*myEdit.putString("token","")
                     myEdit.putBoolean("is_login",false)
-                    myEdit.apply()
+                    myEdit.apply()*/
                     isLogin(false)
+                    Log.e("Check Login",e.toString());
                 }
             }else{
                 isLogin(false)

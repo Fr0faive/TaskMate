@@ -30,7 +30,7 @@ class TaskLabelAdapter(private val mList:List<TaskLabel>): RecyclerView.Adapter<
     }
 
     class ViewHolder(ItemView: View):RecyclerView.ViewHolder(ItemView) {
-        val textView: TextView = itemView.findViewById(R.id.textView)
+        val textView: TextView = itemView.findViewById(R.id.judul_tasklabel)
     }
 }
 

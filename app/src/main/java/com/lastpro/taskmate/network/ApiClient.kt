@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 object RetrofitClient {
@@ -36,10 +37,11 @@ object RetrofitClient {
     }
 
     fun retrofit(token: String?): Retrofit {
-        val httpClient = OkHttpClient.Builder()
+        val httpClient = OkHttpClient.Builder().connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
 
         httpClient.addInterceptor { chain ->
-            Log.d("Debug check login","Bearer "+token)
             val request: Request =
                 chain.request().newBuilder()
                     .addHeader("Accept", "application/json")

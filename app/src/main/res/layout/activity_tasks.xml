@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Tasks">
 
     <LinearLayout
         android:id="@+id/navbar"
@@ -27,24 +27,46 @@
             android:layout_width="match_parent"
             android:gravity="end"
             android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/baseline_logout_24"
-                    android:textColor="@color/white" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/baseline_logout_24"
+                android:textColor="@color/white" />
         </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="68dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/baseline_arrow_back_24"
+            android:drawableTint="#5A5656"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TaskLabel"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/container_tasklabel"
+        android:id="@+id/container_tasks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        tools:itemCount="10"
-        tools:listitem="@layout/card_tasklabel" />
+        android:layout_marginTop="115dp"
+        tools:itemCount="1"
+        tools:listitem="@layout/card_tasks" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/button_add_tasklabel"
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"

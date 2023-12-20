@@ -37,7 +37,7 @@
             android:id="@+id/signInUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
+            android:hint="Email"
             android:inputType="text"
             android:minHeight="48dp"
             android:paddingHorizontal="10dp"
