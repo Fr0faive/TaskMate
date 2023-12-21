@@ -29,6 +29,7 @@ class TaskLabelAdapter(private val mList:List<TaskLabel>, private val onEdit: (I
         val ItemsViewModel = mList[position]
 
         holder.judul_tasklabel.text = ItemsViewModel.name
+        holder.jumlah_task.text = ItemsViewModel.count.toString() + " Task"
 
         holder.button_edit_tasklabel.setOnClickListener{
             onEdit(ItemsViewModel.id)
@@ -48,6 +49,7 @@ class TaskLabelAdapter(private val mList:List<TaskLabel>, private val onEdit: (I
 
     class ViewHolder(ItemView: View):RecyclerView.ViewHolder(ItemView) {
         val judul_tasklabel: TextView = itemView.findViewById(R.id.judul_tasklabel)
+        val jumlah_task: TextView = itemView.findViewById(R.id.jumlah_task)
         val button_edit_tasklabel: Button = itemView.findViewById(R.id.button_edit_tasklabel)
         val button_delete_tasklabel: Button = itemView.findViewById(R.id.button_delete_tasklabel)
         val button_view_task: Button = itemView.findViewById(R.id.button_view_task)

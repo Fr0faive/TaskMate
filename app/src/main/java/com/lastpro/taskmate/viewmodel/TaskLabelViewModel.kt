@@ -42,6 +42,28 @@ class TaskLabelViewModel : ViewModel() {
             }
         }
     }
+    fun getByIdTaskLabel (context: Context,id: Int, data : (TaskLabel)->Unit){
+        viewModelScope.launch {
+            val preferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE)
+            val token   = preferences.getString("token","")
+            try {
+                val service : ApiService = ApiClient.apiService(token)
+                val response = service.getByIdTaskLabel(id)
+
+                if(response.isSuccessful){
+                    val body = response.body() as TaskLabel
+                    data(body)
+                }else{
+                    val jObjError = JSONObject(response.errorBody()!!.string())
+                    val message     = jObjError.getString("message")
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
     fun insertTaskLabel (context: Context, data : TaskLabel, onSuccess : (Boolean)->Unit){
         viewModelScope.launch {
@@ -89,6 +111,29 @@ class TaskLabelViewModel : ViewModel() {
             } catch (e: Exception) {
                 Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
                 onSuccess(false)
+            }
+        }
+    }
+
+    fun deleteTaskLabel (context: Context, id : Int,onSuccess : (Boolean)->Unit){
+        viewModelScope.launch {
+            val preferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE)
+            val token   = preferences.getString("token","")
+            try {
+                val service : ApiService = ApiClient.apiService(token)
+                val response = service.deleteTaskLabel(id)
+
+                if(response.isSuccessful){
+                    val body = response.body() as ApiResponse
+                    Toast.makeText(context, body.message, Toast.LENGTH_SHORT).show()
+                    onSuccess(true);
+                }else{
+                    val jObjError = JSONObject(response.errorBody()!!.string())
+                    val message     = jObjError.getString("message")
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
             }
         }
     }

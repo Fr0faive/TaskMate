@@ -26,10 +26,15 @@ class TasklabelEdit : AppCompatActivity() {
 
         setContentView(R.layout.activity_tasklabel_edit)
 
+        val title : EditText = findViewById(R.id.input_title_tasklabel)
         var id = 0
         val extras = intent.extras
         if (extras != null) {
             id = extras.getInt("id")
+
+            taskLabelViewModel.getByIdTaskLabel(this,id,{data ->
+                title.setText(data.name)
+            })
         }
 
 
@@ -41,7 +46,7 @@ class TasklabelEdit : AppCompatActivity() {
 
         val submitTaskLabelButton : Button = findViewById(R.id.button_tasklabel_submit)
         submitTaskLabelButton.setOnClickListener{
-            val title : EditText = findViewById(R.id.input_title_tasklabel)
+
             val data = TaskLabel(id, title.text.toString())
             submitTaskLabelButton.isEnabled = false
             submitTaskLabelButton.isClickable = false

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContentProviderCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.Observer
@@ -46,8 +47,24 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("id",id)
                 startActivity(intent)
             }, onView = { id ->
-//                Log.d("CLICKED",id.toString())
+                val intent = Intent(this, Tasks::class.java)
+                intent.putExtra("tasklabel_id",id)
+                startActivity(intent)
             }, onDelete = { id ->
+                val builder = AlertDialog.Builder(this)
+                builder.setMessage("Are you sure you want to Delete?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes") { dialog, response ->
+                        taskLabelViewModel.deleteTaskLabel(this,id, { onSuccess ->
+                            taskLabelViewModel.getTaskLabel(this)
+                        })
+                    }
+                    .setNegativeButton("No") { dialog, id ->
+                        // Dismiss the dialog
+                        dialog.dismiss()
+                    }
+                val alert = builder.create()
+                alert.show()
 //                Log.d("CLICKED",id.toString())
             })
             tasklabel_con.adapter = adapter
