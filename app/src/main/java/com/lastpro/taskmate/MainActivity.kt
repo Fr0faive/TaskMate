@@ -60,12 +60,10 @@ class MainActivity : AppCompatActivity() {
                         })
                     }
                     .setNegativeButton("No") { dialog, id ->
-                        // Dismiss the dialog
                         dialog.dismiss()
                     }
                 val alert = builder.create()
                 alert.show()
-//                Log.d("CLICKED",id.toString())
             })
             tasklabel_con.adapter = adapter
         })

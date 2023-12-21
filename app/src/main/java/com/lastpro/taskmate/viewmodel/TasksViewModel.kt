@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lastpro.taskmate.model.ApiResponse
 import com.lastpro.taskmate.model.LoginResponse
+import com.lastpro.taskmate.model.Task
 import com.lastpro.taskmate.model.TaskLabel
 import com.lastpro.taskmate.model.User
 import com.lastpro.taskmate.network.ApiClient
@@ -16,22 +17,21 @@ import com.lastpro.taskmate.network.ApiService
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 
-class TaskLabelViewModel : ViewModel() {
+class TasksViewModel : ViewModel() {
 
-    private val _taskLabelResponse = MutableLiveData<List<TaskLabel>>()
-    val taskLabelResponse: LiveData<List<TaskLabel>> get() = _taskLabelResponse
+    private val _tasksResponse = MutableLiveData<List<Task>>()
+    val tasksResponse: LiveData<List<Task>> get() = _tasksResponse
 
-    fun getTaskLabel (context: Context){
+    fun getTasks (context: Context,tasklabel_id: Int){
         viewModelScope.launch {
             val preferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE)
             val token   = preferences.getString("token","")
             try {
                 val service : ApiService = ApiClient.apiService(token)
-                val response = service.getTaskLabel()
-
+                val response = service.getTasks(tasklabel_id)
                 if(response.isSuccessful){
-                    val body = response.body() as List<TaskLabel>
-                    _taskLabelResponse.value = body
+                    val body = response.body() as List<Task>
+                    _tasksResponse.value = body
                 }else{
                     val message     = response.errorBody()!!.string()
                     Toast.makeText(context, message.toString(), Toast.LENGTH_SHORT).show()
@@ -41,21 +41,20 @@ class TaskLabelViewModel : ViewModel() {
             }
         }
     }
-    fun getByIdTaskLabel (context: Context,id: Int, data : (TaskLabel)->Unit){
+    fun getByIdTask (context: Context,id: Int, data : (Task)->Unit){
         viewModelScope.launch {
             val preferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE)
             val token   = preferences.getString("token","")
             try {
                 val service : ApiService = ApiClient.apiService(token)
-                val response = service.getByIdTaskLabel(id)
+                val response = service.getByIdTask(id)
 
                 if(response.isSuccessful){
-                    val body = response.body() as TaskLabel
+                    val body = response.body() as Task
                     data(body)
                 }else{
-                    val jObjError = JSONObject(response.errorBody()!!.string())
-                    val message     = jObjError.getString("message")
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                    val message     = response.errorBody()!!.string()
+                    Toast.makeText(context, message.toString(), Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
@@ -63,14 +62,13 @@ class TaskLabelViewModel : ViewModel() {
         }
     }
 
-
-    fun insertTaskLabel (context: Context, data : TaskLabel, onSuccess : (Boolean)->Unit){
+    fun insertTask (context: Context, data : Task, onSuccess : (Boolean)->Unit){
         viewModelScope.launch {
             val preferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE)
             val token   = preferences.getString("token","")
             try {
                 val service : ApiService = ApiClient.apiService(token)
-                val response = service.insertTaskLabel(data)
+                val response = service.insertTask(data)
 
                 if(response.isSuccessful){
                     val body = response.body() as ApiResponse
@@ -89,13 +87,13 @@ class TaskLabelViewModel : ViewModel() {
         }
     }
 
-    fun updateTaskLabel (context: Context, data : TaskLabel, onSuccess : (Boolean)->Unit){
+    fun updateTask (context: Context, data : Task, onSuccess : (Boolean)->Unit){
         viewModelScope.launch {
             val preferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE)
             val token   = preferences.getString("token","")
             try {
                 val service : ApiService = ApiClient.apiService(token)
-                val response = service.updateTaskLabel(data.id,data)
+                val response = service.updateTask(data.id,data)
 
                 if(response.isSuccessful){
                     val body = response.body() as ApiResponse
@@ -114,13 +112,13 @@ class TaskLabelViewModel : ViewModel() {
         }
     }
 
-    fun deleteTaskLabel (context: Context, id : Int,onSuccess : (Boolean)->Unit){
+    fun deleteTask (context: Context, id : Int,onSuccess : (Boolean)->Unit){
         viewModelScope.launch {
             val preferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE)
             val token   = preferences.getString("token","")
             try {
                 val service : ApiService = ApiClient.apiService(token)
-                val response = service.deleteTaskLabel(id)
+                val response = service.deleteTask(id)
 
                 if(response.isSuccessful){
                     val body = response.body() as ApiResponse

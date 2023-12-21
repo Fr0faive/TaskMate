@@ -2,6 +2,7 @@ package com.lastpro.taskmate.network
 import com.lastpro.taskmate.model.ApiResponse
 import com.lastpro.taskmate.model.LoginRequest
 import com.lastpro.taskmate.model.LoginResponse
+import com.lastpro.taskmate.model.Task
 import com.lastpro.taskmate.model.TaskLabel
 import com.lastpro.taskmate.model.User
 import retrofit2.Call
@@ -36,5 +37,16 @@ interface ApiService {
     suspend fun updateTaskLabel(@Path("id") id: Int,@Body taskLabel: TaskLabel): Response<ApiResponse>
     @POST("tasklabel/delete/{id}")
     suspend fun deleteTaskLabel(@Path("id") id: Int): Response<ApiResponse>
+
+    @GET("tasks/get/{tasklabel_id}")
+    suspend fun getTasks(@Path("tasklabel_id") id: Int): Response<List<Task>>
+    @GET("tasks/get_by/{id}")
+    suspend fun getByIdTask(@Path("id") id: Int): Response<Task>
+    @POST("tasks/insert")
+    suspend fun insertTask(@Body task: Task): Response<ApiResponse>
+    @POST("tasks/update/{id}")
+    suspend fun updateTask(@Path("id") id: Int,@Body task: Task): Response<ApiResponse>
+    @POST("tasks/delete/{id}")
+    suspend fun deleteTask(@Path("id") id: Int): Response<ApiResponse>
 
 }
