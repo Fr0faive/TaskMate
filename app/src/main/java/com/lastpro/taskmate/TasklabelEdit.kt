@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.lastpro.taskmate.model.TaskLabel
@@ -71,6 +72,14 @@ class TasklabelEdit : AppCompatActivity() {
                 })
             }
 
+        }
+
+        val logoutButton : TextView = findViewById(R.id.button_logout)
+        logoutButton.setOnClickListener{
+            loginViewModel.logout(this,{onSuccess ->
+                val intent = Intent(this, login::class.java)
+                startActivity(intent)
+            })
         }
     }
 }

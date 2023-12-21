@@ -27,6 +27,9 @@ interface ApiService {
     @GET("user_login")
     suspend fun getUserLogin(): Response<User>
 
+    @GET("logout")
+    suspend fun logout(): Response<ApiResponse>
+
     @GET("tasklabel/get")
     suspend fun getTaskLabel(): Response<List<TaskLabel>>
     @GET("tasklabel/get_by/{id}")

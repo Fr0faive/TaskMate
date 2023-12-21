@@ -79,5 +79,12 @@ class Tasks : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+        val logoutButton : TextView = findViewById(R.id.button_logout)
+        logoutButton.setOnClickListener{
+            loginViewModel.logout(this,{onSuccess ->
+                val intent = Intent(this, login::class.java)
+                startActivity(intent)
+            })
+        }
     }
 }

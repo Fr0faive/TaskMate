@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -72,6 +73,14 @@ class MainActivity : AppCompatActivity() {
         addTaskLabelButton.setOnClickListener{
             val intent = Intent(this, TasklabelEdit::class.java)
             startActivity(intent)
+        }
+
+        val logoutButton : TextView = findViewById(R.id.button_logout)
+        logoutButton.setOnClickListener{
+            loginViewModel.logout(this,{onSuccess ->
+                val intent = Intent(this, login::class.java)
+                startActivity(intent)
+            })
         }
     }
 }
