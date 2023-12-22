@@ -17,7 +17,6 @@ class login : AppCompatActivity() {
 //    private val viewModel: LoginViewModel by viewModels()
     val loginViewModel by viewModels<LoginViewModel>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         loginViewModel.checkLogin(this,{ isLogin ->
             if(isLogin){
@@ -53,7 +52,7 @@ class login : AppCompatActivity() {
 
         }
 
-        val registerButton : TextView = findViewById(R.id.buttonRegister)
+        val registerButton : TextView = findViewById(R.id.buttonToRegister)
         registerButton.setOnClickListener{
             val intent = Intent(this, Register::class.java)
             startActivity(intent)
