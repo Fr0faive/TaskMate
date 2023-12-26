@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    const val BASE_URL = "https://next-goose-more.ngrok-free.app/laravel-taskmate/public/api/"
+    const val BASE_URL = "https://taskmate.faikarmocht.my.id/api/"
 
     val retrofit: Retrofit by lazy {
         val httpClient = OkHttpClient.Builder()
