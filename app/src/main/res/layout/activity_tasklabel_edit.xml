@@ -55,7 +55,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TaskLabel"
+            android:text="Kategori Task"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginLeft="20dp"
@@ -72,7 +72,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="Nama Kategori"
             android:textSize="16sp"
             />
         <EditText
@@ -80,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="Type text"
+            android:hint="Masukkan nama kategori"
             />
     </LinearLayout>
 

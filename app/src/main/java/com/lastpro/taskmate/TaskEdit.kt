@@ -12,11 +12,18 @@ import com.lastpro.taskmate.model.TaskLabel
 import com.lastpro.taskmate.viewmodel.LoginViewModel
 import com.lastpro.taskmate.viewmodel.TaskLabelViewModel
 import com.lastpro.taskmate.viewmodel.TasksViewModel
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class TaskEdit : AppCompatActivity() {
 
     val loginViewModel by viewModels<LoginViewModel>()
     val tasksViewModel by viewModels<TasksViewModel> ()
+    private lateinit var dueDateEditText: EditText
+    private val calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +38,11 @@ class TaskEdit : AppCompatActivity() {
         setContentView(R.layout.activity_task_edit)
 
         val title : EditText = findViewById(R.id.input_title_task)
-        val dueDate : EditText = findViewById(R.id.input_dueDate_task)
+//        val dueDate : EditText = findViewById(R.id.input_dueDate_task)
+        dueDateEditText = findViewById(R.id.input_dueDate_task)
+        dueDateEditText.setOnClickListener {
+            showDateTimePicker()
+        }
         val description : EditText = findViewById(R.id.input_description_task)
         var id = 0
         val extras = intent.extras
@@ -43,7 +54,7 @@ class TaskEdit : AppCompatActivity() {
                 tasksViewModel.getByIdTask(this,id,{data ->
                     title.setText(data.title)
                     description.setText(data.description)
-                    dueDate.setText(data.dueDate)
+                    dueDateEditText.setText(data.dueDate)
                 })
             }
         }
@@ -58,7 +69,7 @@ class TaskEdit : AppCompatActivity() {
         val submitTaskButton : Button = findViewById(R.id.button_task_submit)
         submitTaskButton.setOnClickListener{
 
-            val data = Task(id,tasklabel_id, title.text.toString(),description.text.toString(),dueDate.text.toString())
+            val data = Task(id,tasklabel_id, title.text.toString(),description.text.toString(),dueDateEditText.text.toString())
             submitTaskButton.isEnabled = false
             submitTaskButton.isClickable = false
 
@@ -93,5 +104,48 @@ class TaskEdit : AppCompatActivity() {
             })
         }
 
+    }
+
+    private fun showDateTimePicker() {
+        val datePickerDialog = DatePickerDialog(
+            this,
+            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                // Set the selected date to the calendar
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, month)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                // Show TimePickerDialog after selecting the date
+                showTimePicker()
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+
+        datePickerDialog.show()
+    }
+
+    private fun showTimePicker() {
+        val timePickerDialog = TimePickerDialog(
+            this,
+            TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                // Set the selected time to the calendar
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                calendar.set(Calendar.MINUTE, minute)
+
+                // Format the selected date and time
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                val formattedDateTime = dateFormat.format(calendar.time)
+
+                // Set the formatted date and time to the EditText
+                dueDateEditText.setText(formattedDateTime)
+            },
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(Calendar.MINUTE),
+            true
+        )
+
+        timePickerDialog.show()
     }
 }
