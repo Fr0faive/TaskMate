@@ -25,7 +25,8 @@ Anggota Kelompok:
 </table>
 
 ## Tautan lainnya:
-
 Backend : [Backend-TaskMate](https://github.com/faisalach/laravel-taskmate) </br>
-Pitchdeck & Video : [Pitchdeck & Video](https://drive.google.com/drive/folders/1sSSyXaKcOFMGn5kS9tdG7S15rMTd_bD_?usp=drive_link)
+Pitchdeck & Video : [Pitchdeck & Video](https://drive.google.com/drive/folders/1sSSyXaKcOFMGn5kS9tdG7S15rMTd_bD_?usp=drive_link) </br>
+<a href="[https://play.google.com/store/apps/details?id=org.materialos.icons](https://play.google.com/store/apps/details?id=com.lastpro.taskmate&pcampaignid=web_share)" target="_blank">
+<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" alt="Get it on Google Play" height="80"/></a>
 
