@@ -14,6 +14,7 @@ import com.lastpro.taskmate.model.Task
 
 
 class TasksAdapter(private val mList:List<Task>, private val onEdit: (Int)->Unit,private val  onDelete: (Int)->Unit): RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
+    private val NOTIFICATION_TIME_THRESHOLD = 15 * 60 * 1000
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.card_tasks, parent, false)
@@ -35,7 +36,23 @@ class TasksAdapter(private val mList:List<Task>, private val onEdit: (Int)->Unit
         holder.button_delete_task.setOnClickListener{
             onDelete(ItemsViewModel.id)
         }
+//        val timeUntilDeadline = calculateTimeUntilDeadline(ItemsViewModel.dueDate)
+//
+//        if (timeUntilDeadline > 0 && timeUntilDeadline <= NOTIFICATION_TIME_THRESHOLD) {
+//            // panggil metode setAlarm jika deadline akan tiba dalam waktu tertentu
+//            setAlarm(ItemsViewModel.dueDate)
+//        }
     }
+
+//    private fun setAlarm(alarmTime: String) {
+//        // ... (implementasi setAlarm sesuai dengan contoh sebelumnya)
+//    }
+
+
+//    private fun calculateTimeUntilDeadline(deadlineTime: String): Long {
+//        val currentTime = System.currentTimeMillis()
+//        return deadlineTime - currentTime
+//    }
 
     override fun getItemCount(): Int {
         return mList.size
