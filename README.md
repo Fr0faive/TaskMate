@@ -30,8 +30,8 @@ Pitchdeck & Video : [Pitchdeck & Video](https://drive.google.com/drive/folders/1
 <a href="https://play.google.com/store/apps/details?id=com.lastpro.taskmate&pcampaignid=web_share" target="_blank">
 <img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" alt="Get it on Google Play" height="80"/></a>
 
->
-> Tambahan
+<details id=1>
+  <summary><h2>Tambahan</h2></summary>
 > Link Pengumpulan Prak. PAM : [Video](https://drive.google.com/drive/folders/16Mago_ppdn9zl5rZG9LKWoKSUt33fnDu?usp=sharing)
-> 
+</details>
 
